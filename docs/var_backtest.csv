@@ -1,0 +1,15 @@
+model,level,breaches,expected,rate,kupiec p,independence p
+"GARCH(1,1), Gaussian",0.0100,58,27.0100,0.0215,0.0000,0.0086
+"GARCH(1,1), Gaussian",0.0500,142,135.0500,0.0526,0.5427,0.1045
+"GARCH(1,1), Student-t",0.0100,46,27.0100,0.0170,0.0008,0.0078
+"GARCH(1,1), Student-t",0.0500,154,135.0500,0.0570,0.1014,0.2726
+"MS variance (2 regimes), Gaussian",0.0100,41,27.0100,0.0152,0.0120,0.0258
+"MS variance (2 regimes), Gaussian",0.0500,135,135.0500,0.0500,0.9965,0.1113
+"MS variance (2 regimes), Student-t",0.0100,27,27.0100,0.0100,0.9985,0.0001
+"MS variance (2 regimes), Student-t",0.0500,133,135.0500,0.0492,0.8560,0.0425
+"MS-GARCH (2 regimes), Gaussian",0.0100,49,27.0100,0.0181,0.0001,0.0018
+"MS-GARCH (2 regimes), Gaussian",0.0500,142,135.0500,0.0526,0.5427,0.1045
+"MS-GARCH (2 regimes), Student-t",0.0100,48,27.0100,0.0178,0.0003,0.0014
+"MS-GARCH (2 regimes), Student-t",0.0500,149,135.0500,0.0552,0.2254,0.1886
+"MS-GARCH (2 regimes), Student-t, persistent",0.0100,48,27.0100,0.0178,0.0003,0.0108
+"MS-GARCH (2 regimes), Student-t, persistent",0.0500,164,135.0500,0.0607,0.0133,0.3248

@@ -1,0 +1,8 @@
+model,params,log-likelihood,AIC,BIC,regime vol % (calm / turbulent),regime duration days,stay probabilities,nu
+"GARCH(1,1), Gaussian",4,-5412.476,10832.952,10857.893,20,,,
+"GARCH(1,1), Student-t",5,-5352.506,10715.011,10746.188,21,,,7.146
+"MS variance (2 regimes), Gaussian",5,-5570.900,11151.800,11182.977,12 / 32,120 / 55,0.992 / 0.982,
+"MS variance (2 regimes), Student-t",6,-5479.620,10971.240,11008.652,12 / 31,163 / 83,0.994 / 0.988,5.506
+"MS-GARCH (2 regimes), Gaussian",9,-5342.674,10703.348,10759.467,11 / 22,1 / 2,0.020 / 0.554,
+"MS-GARCH (2 regimes), Student-t",10,-5334.130,10688.259,10750.613,11 / 22,1 / 3,0.000 / 0.679,17.521
+"MS-GARCH (2 regimes), Student-t, persistent",10,-5339.169,10698.338,10760.691,11 / 21,24 / 67,0.959 / 0.985,9.035

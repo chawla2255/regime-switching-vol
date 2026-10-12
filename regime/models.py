@@ -32,12 +32,14 @@ class Spec:
     regimes: int = 1
     garch: bool = True
     student_t: bool = False
+    min_stay: float = 0.0       # if > 0, only search where every Pr(stay in regime) >= min_stay
 
     @property
     def name(self) -> str:
         core = ("GARCH(1,1)" if self.garch else "Constant variance") if self.regimes == 1 else (
             f"MS-GARCH ({self.regimes} regimes)" if self.garch else f"MS variance ({self.regimes} regimes)")
-        return f"{core}, {'Student-t' if self.student_t else 'Gaussian'}"
+        name = f"{core}, {'Student-t' if self.student_t else 'Gaussian'}"
+        return name + (", persistent" if self.min_stay > 0 else "")
 
     @property
     def n_params(self) -> int:
@@ -218,13 +220,21 @@ def _starts(spec: Spec, y: np.ndarray, rng: np.random.Generator, n: int) -> list
 
 
 def fit(y, spec: Spec, n_starts: int = 6, seed: int = 0) -> Fit:
-    """Maximum likelihood over several starting points; the best local optimum wins."""
+    """Maximum likelihood over several starting points; the best local optimum wins.
+
+    With spec.min_stay > 0 a steep penalty keeps the search among persistent regimes. When the
+    penalty is not binding at the optimum, the result is a local maximum of the plain likelihood.
+    """
     y = np.asarray(y, float)
     s0 = float(y.var())
     rng = np.random.default_rng(seed)
+
+    def obj(th):
+        short = np.clip(spec.min_stay - np.diag(_unpack(spec, th)["P"]), 0, None) if spec.min_stay else 0
+        return -_loglik(spec, th, y, s0) + 1e4 * np.sum(short**2)
+
     best = None
     for theta0 in _starts(spec, y, rng, n_starts):
-        obj = lambda th: -_loglik(spec, th, y, s0)
         try:
             res = minimize(obj, theta0, method="L-BFGS-B")
             res = minimize(obj, res.x, method="Nelder-Mead",
@@ -236,7 +246,8 @@ def fit(y, spec: Spec, n_starts: int = 6, seed: int = 0) -> Fit:
     if best is None:
         raise RuntimeError(f"{spec.name}: every start failed")
     params = _canonical_order(spec, _unpack(spec, best.x), y, s0)
-    return Fit(spec, params, -float(best.fun), len(y), s0, _pack(spec, params))
+    theta = _pack(spec, params)
+    return Fit(spec, params, _loglik(spec, theta, y, s0), len(y), s0, theta)
 
 
 def simulate(spec: Spec, params: dict, n: int, seed: int = 0):

@@ -1,0 +1,8 @@
+model,avg log score,log score DM vs GARCH-t,DM p,QLIKE,QLIKE DM vs GARCH-t,QLIKE DM p
+"GARCH(1,1), Gaussian",-1.2985,5.2292,0.0000,0.7590,-0.5074,0.6119
+"GARCH(1,1), Student-t",-1.2623,,,0.7607,,
+"MS variance (2 regimes), Gaussian",-1.3334,5.2255,0.0000,0.8566,3.1229,0.0018
+"MS variance (2 regimes), Student-t",-1.3019,5.0309,0.0000,0.8781,3.5576,0.0004
+"MS-GARCH (2 regimes), Gaussian",-1.2736,2.7480,0.0060,0.7666,0.8823,0.3776
+"MS-GARCH (2 regimes), Student-t",-1.2638,0.6327,0.5270,0.7620,0.3071,0.7588
+"MS-GARCH (2 regimes), Student-t, persistent",-1.2649,0.9710,0.3315,0.7690,1.1445,0.2524
